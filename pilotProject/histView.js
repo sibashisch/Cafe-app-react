@@ -56,7 +56,7 @@ class HistThread extends Component {
             <KeyboardAvoidingView style={styles.container}>
                 
                 <View style={styles.headerSpace}>
-                    <Text style={styles.headerSpaceTxt}>Cafe-App (Sibashis)</Text>
+                    <Text style={styles.headerSpaceTxt}>PCC POS</Text>
                 </View>
       
                 <FlatList
