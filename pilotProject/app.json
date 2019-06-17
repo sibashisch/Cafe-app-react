@@ -29,10 +29,10 @@
     "description": "Pilot Project on the Cafe Billing App.\n\nUser sends an text to a server and server calculates and returns the bill amount.",
     "githubUrl": "https://github.com/sibashisch/Cafe-app-react.git",
     "android": {
-	    "package": "name.sibashis.pccpos"
+	    "package": "com.pccpos.pccpos"
     },
     "ios": {
-	    "bundleIdentifier": "name.sibashis.pccpos"
+	    "bundleIdentifier": "com.pccpos.pccpos"
     }
   }
 }
