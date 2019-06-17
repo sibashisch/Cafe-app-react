@@ -53,22 +53,18 @@ class CurrentThread extends Component {
         this.setState ({loading: true, loadTxt: 'Loading!'});
         let infoBox = {sent: evt.nativeEvent.text};
         infoBox.timeReq = Date.now() + ' ';
-        let completeUrl = 'https://messenger-cafe-app-bkend.herokuapp.com/getbill?str=' + evt.nativeEvent.text;
+        let completeUrl = 'http://192.168.101.56:8080/mob_svc/svc.jsp?str=' + evt.nativeEvent.text;
         fetch (completeUrl)
         .then((response) => response.json())
         .then((responseJson) => {
             //console.log (responseJson);
             if (!responseJson.billval) {
+                console.log (responseJson);
                 Alert.alert ('Some Error Occurred');
-                infoBox.resp = 'ERROR';
-                infoBox.timeRes = Date.now() + ' ';
-            } else if (responseJson.billval == -1) {
-                Alert.alert ('Error' + ((responseJson.ERR)?(': ' + responseJson.ERR):(' occurred')));
-                infoBox.resp = 'ERROR';
+                infoBox.resp = 'Error';
                 infoBox.timeRes = Date.now() + ' ';
             } else {
-                Alert.alert ('Total Bill Value: ' + responseJson.billval);
-                infoBox.resp = 'Bill: ' + responseJson.billval;
+                infoBox.resp = responseJson.billval;
                 infoBox.timeRes = Date.now() + ' ';
             }
             this._addConvo (infoBox);
@@ -77,7 +73,7 @@ class CurrentThread extends Component {
         .catch((error) => {
             console.error (error);
             Alert.alert ('Some Error Occurred');
-            infoBox.resp = 'ERROR';
+            infoBox.resp = 'Error';
             infoBox.timeRes = Date.now() + ' ';
             this._addConvo (infoBox);
             this.setState ({loading: false});
@@ -109,7 +105,7 @@ class CurrentThread extends Component {
                     data={this.state.convo}
                     renderItem={({item}) => 
                         <View>
-                            <View style={item.resp.startsWith("ERROR")?styles.itemWrapperResErr:styles.itemWrapperRes}>
+                            <View style={item.resp.toLowerCase().startsWith("error")?styles.itemWrapperResErr:styles.itemWrapperRes}>
                                 <Text style={styles.itemTimeRes}> {this._cleanDate(parseInt(item.timeRes.trim()))} </Text>
                                 <Text style={styles.itemRes}> {item.resp} </Text>
                             </View>
@@ -218,7 +214,7 @@ const styles = StyleSheet.create({
     },
     itemWrapperReq: {
         borderColor: 'darkblue',
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
         borderWidth: 1,
         alignSelf: 'stretch',
         marginBottom: 5,
@@ -231,15 +227,15 @@ const styles = StyleSheet.create({
     },
     itemTimeReq: {
         fontSize: 10,
-        color: 'white',
+        color: 'black',
     },
     itemReq: {
         fontSize: 15,
-        color: 'white',
+        color: 'black',
     },
     itemWrapperRes: {
-        borderColor: 'darkgreen',
-        backgroundColor: 'green',
+        borderColor: 'green',
+        backgroundColor: 'white',
         borderWidth: 1,
         alignSelf: 'stretch',
         marginBottom: 1,
@@ -253,7 +249,7 @@ const styles = StyleSheet.create({
     },
     itemWrapperResErr: {
         borderColor: 'darkred',
-        backgroundColor: 'red',
+        backgroundColor: 'white',
         borderWidth: 1,
         alignSelf: 'stretch',
         marginBottom: 1,
@@ -267,11 +263,11 @@ const styles = StyleSheet.create({
     },
     itemTimeRes: {
         fontSize: 10,
-        color: 'white',
+        color: 'black',
     },
     itemRes: {
         fontSize: 15,
-        color: 'white',
+        color: 'black',
     },
     loaderStyleShown: {
         position: 'absolute',
