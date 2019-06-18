@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     },
     itemWrapperReq: {
         borderColor: 'darkblue',
-        backgroundColor: 'blue',
+        backgroundColor: 'lightblue',
         borderWidth: 1,
         alignSelf: 'stretch',
         marginBottom: 5,
@@ -120,15 +120,15 @@ const styles = StyleSheet.create({
     },
     itemTimeReq: {
         fontSize: 10,
-        color: 'white',
+        color: 'black',
     },
     itemReq: {
         fontSize: 15,
-        color: 'white',
+        color: 'black',
     },
     itemWrapperRes: {
-        borderColor: 'darkgreen',
-        backgroundColor: 'green',
+        borderColor: 'green',
+        backgroundColor: 'white',
         borderWidth: 1,
         alignSelf: 'stretch',
         marginBottom: 1,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     },
     itemWrapperResErr: {
         borderColor: 'darkred',
-        backgroundColor: 'red',
+        backgroundColor: 'white',
         borderWidth: 1,
         alignSelf: 'stretch',
         marginBottom: 1,
@@ -156,11 +156,11 @@ const styles = StyleSheet.create({
     },
     itemTimeRes: {
         fontSize: 10,
-        color: 'white',
+        color: 'black',
     },
     itemRes: {
         fontSize: 15,
-        color: 'white',
+        color: 'black',
     },
     loaderStyleShown: {
         position: 'absolute',

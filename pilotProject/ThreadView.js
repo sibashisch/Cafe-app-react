@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     },
     oneThreadTxtWrap: {
         borderColor: 'indigo',
-        backgroundColor: 'mediumblue',
+        backgroundColor: 'white',
         borderWidth: 1,
         margin: 10,
         borderTopLeftRadius: 10,
@@ -172,14 +172,14 @@ const styles = StyleSheet.create({
         flex: 3,
     },
     oneThreadTxt: {
-        color: 'white',
+        color: 'darkblue',
         fontWeight: 'bold',
         padding: 5,
         fontSize: 20,
     },
     oneThreadBtnWrap: {
-        borderColor: 'red',
-        backgroundColor: 'darkred',
+        borderColor: 'darkred',
+        backgroundColor: 'white',
         borderWidth: 1,
         margin: 10,
         borderTopRightRadius: 10,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     oneThreadBtn: {
-        color: 'white',
+        color: 'darkred',
         fontWeight: 'bold',
         padding: 5,
         fontSize: 20,

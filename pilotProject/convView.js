@@ -28,9 +28,24 @@ class CurrentThread extends Component {
         this._retrieveThread (this._generateDateToken());
     }
     
+    _generateUserToken = () => {
+        let d = Date.now();
+        let result = d + '-';
+        let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let charactersLength = characters.length;
+        let i = 0;
+        let length = 12;
+        while (i < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            i ++;
+        }
+        return result;
+    }
+    
     state = {
         loading: false, 
         loadTxt: 'Loading!', 
+        user: this._generateUserToken(),
         convo: [{key:'0', sent:'Start', resp:'Ready', timeReq: Date.now() + ' ', timeRes: Date.now() + ' '}]
     };
     
@@ -53,7 +68,8 @@ class CurrentThread extends Component {
         this.setState ({loading: true, loadTxt: 'Loading!'});
         let infoBox = {sent: evt.nativeEvent.text};
         infoBox.timeReq = Date.now() + ' ';
-        let completeUrl = 'http://192.168.101.56:8080/mob_svc/svc.jsp?str=' + evt.nativeEvent.text;
+        let completeUrl = 'http://192.168.101.56:8080/mob_svc/svc.jsp?str=' + evt.nativeEvent.text + '&id=' + this.state.user;
+        this.textInput.clear();
         fetch (completeUrl)
         .then((response) => response.json())
         .then((responseJson) => {
@@ -97,6 +113,7 @@ class CurrentThread extends Component {
                         style={styles.inputStyle}
                         placeholder={this.inputPlaceHolder}
                         onSubmitEditing={this._onSubmitText}
+                        ref={input => { this.textInput = input }}
                     />
                 </View>
       
@@ -214,7 +231,7 @@ const styles = StyleSheet.create({
     },
     itemWrapperReq: {
         borderColor: 'darkblue',
-        backgroundColor: 'white',
+        backgroundColor: 'lightblue',
         borderWidth: 1,
         alignSelf: 'stretch',
         marginBottom: 5,
