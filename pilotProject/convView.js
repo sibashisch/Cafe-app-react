@@ -68,6 +68,9 @@ class CurrentThread extends Component {
         this.setState ({loading: true, loadTxt: 'Loading!'});
         let infoBox = {sent: evt.nativeEvent.text};
         infoBox.timeReq = Date.now() + ' ';
+        if (evt.nativeEvent.text && evt.nativeEvent.text.startsWith ("SO")) {
+            this.setState ({user: this._generateUserToken()});
+        }
         let completeUrl = 'http://192.168.101.56:8080/mob_svc/svc.jsp?str=' + evt.nativeEvent.text + '&id=' + this.state.user;
         this.textInput.clear();
         fetch (completeUrl)
