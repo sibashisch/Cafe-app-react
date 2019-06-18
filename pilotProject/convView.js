@@ -25,7 +25,8 @@ class CurrentThread extends Component {
     }   
     
     componentDidMount () {
-        this._retrieveThread (this._generateDateToken());
+        //this._retrieveThread (this._generateDateToken());
+        this._retrieveThread (this.state.dateToken);
     }
     
     _generateUserToken = () => {
@@ -40,12 +41,20 @@ class CurrentThread extends Component {
             i ++;
         }
         return result;
-    }
+    };
+    
+    _generateDateToken = () => {
+        let currTimeStamp = Date.now();
+        let currDate = new Date (currTimeStamp);
+        let dateToken = currDate.getDate() + '/' + currDate.getMonth() + '/' + currDate.getFullYear();
+        return dateToken;
+    };
     
     state = {
         loading: false, 
         loadTxt: 'Loading!', 
         user: this._generateUserToken(),
+        dateToken: this._generateDateToken(),
         convo: [{key:'0', sent:'Start', resp:'Ready', timeReq: Date.now() + ' ', timeRes: Date.now() + ' '}]
     };
     
@@ -68,9 +77,11 @@ class CurrentThread extends Component {
         this.setState ({loading: true, loadTxt: 'Loading!'});
         let infoBox = {sent: evt.nativeEvent.text};
         infoBox.timeReq = Date.now() + ' ';
-        if (evt.nativeEvent.text && evt.nativeEvent.text.startsWith ("SO")) {
+        /*earlier it was decided that every new conversation will start with SO and s nre user token. Later we decided to go for day wise
+         * token for more flexibility
+         * if (evt.nativeEvent.text && evt.nativeEvent.text.startsWith ("SO")) {
             this.setState ({user: this._generateUserToken()});
-        }
+        }*/
         let completeUrl = 'http://192.168.101.56:8080/mob_svc/svc.jsp?str=' + evt.nativeEvent.text + '&id=' + this.state.user;
         this.textInput.clear();
         fetch (completeUrl)
@@ -151,13 +162,6 @@ class CurrentThread extends Component {
     
     // The following portion deals with the persistance of data
     
-    _generateDateToken = () => {
-        let currTimeStamp = Date.now();
-        let currDate = new Date (currTimeStamp);
-        let dateToken = currDate.getDate() + '/' + currDate.getMonth() + '/' + currDate.getFullYear();
-        return dateToken;
-    };
-    
     _retrieveThreadNames = async () => {
         this.setState ({loading: true, loadTxt: 'Retrieving Threads!'});
         let values = null;
@@ -174,7 +178,7 @@ class CurrentThread extends Component {
     _saveThread = async () => {
         this.setState ({loading: true, loadTxt: 'Saving Data!'});
         try {
-            let dateToken = this._generateDateToken();
+            let dateToken = this.state.dateToken;
             await AsyncStorage.setItem (dateToken, JSON.stringify(this.state));
             this.setState ({loading: false});
         } catch (error) {
